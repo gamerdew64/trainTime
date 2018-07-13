@@ -1,0 +1,61 @@
+/* This is the styling of the loading gif */
+#loader video
+{
+  position: fixed;
+  max-width: 100%;
+  max-height: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+}
+
+/* This is the styling for what is essentially the background of the page (which cycyles through several different images) */
+/* Since we placed several additional divs within the body, they will function as teh layer on top of the body - making this the background */
+body
+{
+   background: url("../images/background1.jpg");
+   animation: color-me-in 60s; /* time it takes for the complete animation to complete */
+   animation-iteration-count: 25; /* will continue for roughly 15 minutes or so */
+}
+
+/* Start background animation section*/
+@keyframes color-me-in
+{
+  /* Starts with base image --- step 1 */
+  0%
+  {
+  background: url("../images/background1.jpg") no-repeat center center fixed;
+  background-size:cover;
+  /* transform: translateX(0%); */
+  }
+  /* Begins transition to next image at 25% */
+  25%
+  {
+    background: url("../images/background2.jpg") no-repeat center center fixed;
+    background-size:cover;
+    /* transform: translateX(25%); */
+  }
+  /* Begins transition to next image at 50% */
+  50%
+  {
+    background: url("../images/background3.jpg") no-repeat center center fixed;
+    background-size:cover;
+    /* transform: translateX(50%); */
+  }
+  /* Begins transition to next image at 75% */
+  75%
+  {
+    background: url("../images/background4.jpg") no-repeat center center fixed;
+    background-size:cover;
+    /* transform: translateX(75%); */
+  }
+  /* Begins transition to next image at 100% */
+  100%
+  {
+    background: url("../images/background5.jpg") no-repeat center center fixed;
+    background-size:cover;
+    /* transform: translateX(100%); */
+  }
+}
