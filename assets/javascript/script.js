@@ -166,7 +166,7 @@ database.ref().on("child_added", function(childSnapshot, prevChildKey) {
   trainName + "</td><td>" +
   trainDestination + "</td><td>" +
   todayDatePretty + "</td><td>" +
-  currentTime + "</td><td>" +
+  currentTime.format("hh:mm") + "</td><td>" +
   // trainMonths + "</td><td>" +
   firstTrain + "</td><td>" +
   trainFrequency + " Minute(s)" + "</td><td>" +
