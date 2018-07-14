@@ -17,7 +17,7 @@
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
     <!-- Firebase Reference -->
-    <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
 
     <!-- Moment.js Reference -->
     <!-- <script src="http://momentjs.com/downloads/moment.js"></script>   -->
@@ -37,78 +37,76 @@
     <div class="container">
 
       <!-- Jumbotron -->
-      <div class="jumbotron" style="background-color: orange; color: white">
+      <div class="jumbotron">
         <h1 class="text-center">Train Schedule</h1>
         <h3 class="text-center">A Schedule for Upcoming Trains</h3>
       </div>
 
-      <div class="row">
+      <div class="card-columns d-flex justify-content-center">
 
-        <div class="col-lg-12">
+        <div class="row">
+          <div class="col-lg-12">
+            <!-- Add Employee  -->
+            <div class="card card-primary">
+              <div class="card-heading">
+                <h3 class="card-title"><strong>Add Train</strong></h3>
+              </div>
+              <div class="card-body">
 
-          <!-- Current Employees-->
-          <div class="card card-primary">
-            <div class="card-heading">
-              <h3 class="card-title"><strong>Current Employees</strong></h3>
+                <!-- Entry Form -->
+                <form>
+                  <div class="form-group row">
+                    <label for="train-name-input">Train Name</label>
+                    <input class="form-control" id="train-name-input" type="text" value="eg. The Mighty Hoss, Ol' Bessy, Tried n' True">
+                  </div>
+                  <div class="form-group row">
+                    <label for="destination-input">Destination</label>
+                    <input class="form-control" id="destination-input" type="text" value="eg. Chicago, New York City, Los Angeles">
+                  </div>
+                  <div class="form-group row">
+                    <label for="today-date-input">Today's Date (DD/MM/YYYY)</label>
+                    <input class="form-control" id="today-date-input" type="text" value="mm/dd//yyyy">
+                  </div>
+                  <div class="form-group row">
+                    <label for="first-train-input">First Train Arrival Time (Hours/Minutes)</label>
+                    <input class="form-control" id="first-train-input" type="time" value="24:00">
+                  </div>
+                  <div class="form-group row">
+                    <label for="frequency-input">Train Arrival Frequency (Minutes)</label>
+                    <input class="form-control" id="frequency-input" type="number" value="00">
+                  </div>
+                  <button class="btn btn-primary" id="add-train-btn" type="submit">Submit</button>
+                </form>
+              </div>
             </div>
-            <div class="card-body">
-              <table class="table table-hover" id='employee-table'>
-                <thead>
-                  <tr>
-                    <th>Employee Name</th>
-                    <th>Role</th>
-                    <th>Start Date</th>
-                    <th>Months Worked</th>
-                    <th>Monthly Rate ($)</th>
-                    <th>Total Billed ($)</th>
-                  </tr>
-                </thead>
-                <tbody>
-                </tbody>
-              </table>
+
+            <!-- Current Train Schedule-->
+            <div class="card card-primary">
+              <div class="card-heading">
+                <h3 class="card-title"><strong>Current Train Schedule</strong></h3>
+              </div>
+              <div class="card-body">
+                <table class="table table-hover" id='train-table'>
+                  <thead>
+                    <tr>
+                      <th>Train Name</th>
+                      <th>Destination</th>
+                      <th>Today's Date</th>
+                      <th>Current Time</th>
+                      <th>First Train Time</th>
+                      <th>Train Arrival Frequency (in Minutes)</th>
+                      <th>Next Train Arrival (in Minutes)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
-
-        <!-- Add Employee  -->
-        <div class="card card-primary">
-          <div class="card-heading">
-            <h3 class="card-title"><strong>Add Employee</strong></h3>
-          </div>
-          <div class="card-body">
-
-            <!-- Entry Form -->
-            <form>
-              <div class="form-group row">
-                <label for="employee-name-input">Employee Name</label>
-                <input class="form-control" id="employee-name-input" type="text">
-              </div>
-              <div class="form-group row">
-                <label for="role-input">Role</label>
-                <input class="form-control" id="role-input" type="text">
-              </div>
-              <div class="form-group row">
-                <label for="start-input">Start Date (DD/MM/YY - ex: 01/01/89)</label>
-                <input class="form-control" id="start-input" type="text">
-              </div>
-              <div class="form-group row">
-                <label for="rate-input">Monthly Rate</label>
-                <input class="form-control" id="rate-input" type="text">
-              </div>
-              <button class="btn btn-primary" id="add-employee-btn" type="submit">Submit</button>
-            </form>
-
-          </div>
-
-        </div>
-
       </div>
-
     </div>
-
-  </div>
-
-  </div>
 
   <!-- JavaScript -->
   <script src="assets/javascript/script.js"></script>

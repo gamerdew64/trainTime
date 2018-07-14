@@ -11,11 +11,17 @@
   z-index: 100;
 }
 
+.jumbotron
+{
+  background-color: orange;
+  color: white;
+}
+
 /* This is the styling for what is essentially the background of the page (which cycyles through several different images) */
 /* Since we placed several additional divs within the body, they will function as teh layer on top of the body - making this the background */
 body
 {
-   background: url("../images/background1.jpg");
+   /* background: url("../images/background1.jpg"); */
    animation: color-me-in 60s; /* time it takes for the complete animation to complete */
    animation-iteration-count: 25; /* will continue for roughly 15 minutes or so */
 }
