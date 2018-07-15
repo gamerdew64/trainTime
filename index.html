@@ -1,42 +1,40 @@
 <!DOCTYPE html>
-
 <html lang="en-us">
-
 <head>
-
   <meta charset="UTF-8">
-
   <title>trainTime Assignment</title>
-
-    <!-- Bootstrap -->
+    <!-- Bootstrap Reference -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <!-- JQuery Reference -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Bootstrap JQuery Reference -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-
     <!-- Custom CSS Reference -->
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-
     <!-- Firebase Reference -->
     <script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
-
     <!-- Moment.js Reference -->
-    <!-- <script src="http://momentjs.com/downloads/moment.js"></script>   -->
     <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
-
   </head>
 
   <body>
-
     <!-- This is a div that conains the loading screen gif -->
-    <!-- <div id="loader">
-      <video autoplay="autoplay" controls="controls" width="100%" height="100%">
-        <source src="assets/videos/trains.mp4">
-    </div> -->
+    <div id="loader">
+        <img src="assets/images/loading.gif" width="100%">
+    </div>
 
-    <!-- Employee Tracker -->
+    <!-- This is a div that conains the audio controller -->
+    <!-- By default, this should autoplay in Firefox, but not in Chrome. Feel free to see the behavior in each browser -->
+    <div id="musicGroup">
+      <audio id="musicToggle" autoplay="autoplay" controls="controls">
+         <source src="assets/sounds/trains.mp3"/>
+     </audio>
+   </div>
+
+    <!-- Main Container -->
     <div class="container">
 
-      <!-- Jumbotron -->
+      <!-- Jumbotron Title Page -->
       <div class="jumbotron">
         <h1 class="text-center">Train Schedule</h1>
         <h3 class="text-center">A Schedule for Upcoming Trains</h3>
@@ -46,14 +44,15 @@
 
         <div class="row">
           <div class="col-lg-12">
-            <!-- Add Employee  -->
+
+            <!-- Add New Train Section -->
             <div class="card card-primary">
               <div class="card-heading">
                 <h3 class="card-title"><strong>Add Train</strong></h3>
               </div>
               <div class="card-body">
 
-                <!-- Entry Form -->
+                <!-- User Input Form -->
                 <form>
                   <div class="form-group row">
                     <label for="train-name-input">Train Name</label>
@@ -101,16 +100,21 @@
                   <tbody>
                   </tbody>
                 </table>
+              <!-- Closing "card-body" -->
               </div>
+            <!-- Closing "card card-primary" -->
             </div>
+          <!-- Closing "col-lg-12" -->
           </div>
+        <!-- Closing "row" -->
         </div>
+      <!-- Closing "card-columns d-flex justify-content-center" -->
       </div>
+    <!-- Closing "container" -->
     </div>
 
-  <!-- JavaScript -->
+  <!-- JavaScript Reference -->
   <script src="assets/javascript/script.js"></script>
 
   </body>
-
   </html>

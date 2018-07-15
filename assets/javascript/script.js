@@ -1,66 +1,15 @@
-// PROMPT
-// In this assignment, you'll create a train schedule application that incorporates Firebase to host arrival and departure data.
-// Your app will retrieve and manipulate this information with Moment.js.
-// This website will provide up-to-date information about various trains, namely their arrival times and how many minutes remain until they arrive at their station.
-
-// ### Instructions
-//
-// * Make sure that your app suits this basic spec:
-//
-//   * When adding trains, administrators should be able to submit the following:
-//
-//     * Train Name
-//
-//     * Destination
-//
-//     * First Train Time -- in military time
-//
-//     * Frequency -- in minutes
-//
-//   * Code this app to calculate when the next train will arrive; this should be relative to the current time.
-//
-//   * Users from many different machines must be able to view same train times.
-//
-//   * Styling and theme are completely up to you. Get Creative!
-
-
-// ### Bonus (Extra Challenges)
-//
-// Consider updating your "minutes to arrival" and "next train time" text once every minute.
-// This is significantly more challenging; only attempt this if you've completed the actual activity and committed it somewhere on GitHub for safekeeping (and maybe create a second GitHub repo).
-//
-// Try adding `update` and `remove` buttons for each train. Let the user edit the row's elements--
-// allow them to change a train's Name, Destination and Arrival Time (and then, by relation, minutes to arrival).
-//
-// As a final challenge, make it so that only users who log into the site with their Google or GitHub accounts can use your site.
-// You'll need to read up on Firebase authentication for this bonus exercise.
-
-
 // ====================================================================================================================================================================================================================
 // BEGIN
 // ====================================================================================================================================================================================================================
 
 // This code will need to be executed when the DOM has fully loaded
-// $(document).ready(function()
-// {
-//   // This function controls the timing and fade of our loading gif. This will last for 3 seconds.
-//   $("#loader").delay(7000).fadeOut("fast");
-// });
+$(document).ready(function()
+{
+  // This function controls the timing and fade of our loading gif. This will last for 3 seconds.
+  $("#loader").delay(5000).fadeOut("fast");
+});
 
-
-
-/* global firebase moment */
-
-// Steps to complete:
-
-// 1. Initialize Firebase
-// 2. Create button for adding new employees - then update the html + update the database
-// 3. Create a way to retrieve employees from the employee database.
-// 4. Create a way to calculate the months worked. Using difference between start and current time.
-//    Then use moment.js formatting to set difference in months.
-// 5. Calculate Total billed
-
-// 1. Initialize Firebase
+// Initialize Firebase
 var config = {
   apiKey: "AIzaSyC918V-6qVdIohejYb1U7Nb7c-Sq-lQ0ws",
   authDomain: "traintime-409d3.firebaseapp.com",
@@ -74,18 +23,19 @@ firebase.initializeApp(config);
 
 var database = firebase.database();
 
-// 2. Button for adding Employees
+// This is the button associated with the submit type that for adds trains
 $("#add-train-btn").on("click", function(event) {
   event.preventDefault();
 
-  // Grabs user input
+  // Collecting input from user
+  // The todayDate and firstTrain variables use moment.js for assistance in converting the date
   var trainName = $("#train-name-input").val().trim();
   var trainDestination = $("#destination-input").val().trim();
   var todayDate = moment($("#today-date-input").val().trim(), "DD/MM/YYYY").format("X");
   var firstTrain = moment($("#first-train-input").val().trim(), "h:mm A").format("HH:mm");
   var trainFrequency = $("#frequency-input").val().trim();
 
-  // Creates local "temporary" object for holding employee data
+  // Creating a new local "temporary" object for that holds train data
   var newTrain = {
     name: trainName,
     destination: trainDestination,
@@ -94,20 +44,21 @@ $("#add-train-btn").on("click", function(event) {
     frequency: trainFrequency
   };
 
-  // Uploads employee data to the database
+  // Uploading this train data to the Firebase database
   database.ref().push(newTrain);
 
-  // Logs everything to console
+  // Logging everything to the console
+  // This could be uncommented, but it is good to keep so that it is easy to verify the behavior in both Firebase and the console.
   console.log(newTrain.name);
   console.log(newTrain.destination);
   console.log(newTrain.date);
   console.log(newTrain.first);
   console.log(newTrain.frequency);
 
-  // Alert
+  // Alerting the user that the new train information has been successfully updated
   alert("New Train Information Successfully Updated");
 
-  // Clears all of the text-boxes
+  // Clearing out all of the text-boxes by setting the values to an empty string
   $("#train-name-input").val("");
   $("#destination-input").val("");
   $("#today-date-input").val("");
@@ -115,61 +66,70 @@ $("#add-train-btn").on("click", function(event) {
   $("#frequency-input").val("");
 });
 
-// 3. Create Firebase event for adding employee to the database and a row in the html when a user adds an entry
+// Create Firebase event for adding train information to the Firebase database and a row in the html when a user adds a new train
 database.ref().on("child_added", function(childSnapshot, prevChildKey) {
 
+  // Console logging the information that was sent to the Firebase database, to verify that it is showing correctly
   console.log(childSnapshot.val());
 
-  // Store everything into a variable.
+  // Storing the above childSnapshot for each input in a new variable
   var trainName = childSnapshot.val().name;
   var trainDestination = childSnapshot.val().destination;
   var todayDate = childSnapshot.val().date;
   var firstTrain = childSnapshot.val().first;
   var trainFrequency = childSnapshot.val().frequency;
 
-  // Employee Info
+  // Console logging the train info that was generated from the above snapshot values
   console.log(trainName);
   console.log(trainDestination);
   console.log(todayDate);
   console.log(firstTrain);
   console.log(trainFrequency);
 
-  // Prettify the employee start
-  var todayDatePretty = moment.unix(todayDate).format("MM/DD/YYYY");
+  // Creating a moment from a Unix timestamp in moment.js
+  var todayDateUpdated = moment.unix(todayDate).format("MM/DD/YYYY");
 
-  // First Time (pushed back 1 year to make sure it comes before current time)
+  // Creating a new variable called firstTimeConverted (this was pushed back 1 year to make sure it comes before current time)
   var firstTimeConverted = moment(firstTrain, "HH:mm").subtract(1, "years");
+  // Console logging firstTimeConverted to verify that the time shows correctly
   console.log(firstTimeConverted);
 
-  // Current Time
+  // Creating a new variable called currentTime using moment()
   var currentTime = moment();
-  console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
+  // Console logging the current time to verify that it shows correctly
+  console.log("Current Time: " + moment(currentTime).format("hh:mm"));
 
-  // Difference between the times
+  // Creating a new variable called timeDifference that compares the difference in time between this and the firstTimeConverted, and displays the result in minutes
   var timeDifference = moment().diff(moment(firstTimeConverted), "minutes");
-  console.log("DIFFERENCE IN TIME: " + timeDifference);
+  // Console logging the difference in time to verify that it shows correctly
+  console.log("Difference in Time: " + timeDifference);
 
-  // Time apart (remainder)
+  // Creating a new variable called timeRemainder that stores the remainder (modulus) of the timeDifference and trainFrequency
   var timeRemainder = timeDifference % trainFrequency;
+  // Console logging the remainder in time to verify that it shows correctly
   console.log(timeRemainder);
 
-  // Minute Until Train
+  // Creating a new variable called timeMinutesTillTrain that subtracts the timeRemainder from the trainFrequency to let us know how many minutes until the next train
   var timeMinutesTillTrain = trainFrequency - timeRemainder;
-  console.log("MINUTES TILL TRAIN: " + timeMinutesTillTrain);
+  // Console logging the minutes until the next train to verify that it shows correctly
+  console.log("Minutes Until the Next Train: " + timeMinutesTillTrain);
 
-  // Next Train
+  // Creating nextTrain variable and assign it to a moment() object that adds timeMinutesTillTrain in minutes
   var nextTrain = moment().add(timeMinutesTillTrain, "minutes");
-  console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
+  // Console logging the estimate arrival time to verify that it shows correctly
+  console.log("Estimated Arrival Time: " + moment(nextTrain).format("hh:mm"));
 
-  // Add each train's data into the table
+  // Adding the entered train data into the table
   $("#train-table > tbody").append("<tr><td>" +
   trainName + "</td><td>" +
   trainDestination + "</td><td>" +
-  todayDatePretty + "</td><td>" +
+  todayDateUpdated + "</td><td>" +
   currentTime.format("hh:mm") + "</td><td>" +
-  // trainMonths + "</td><td>" +
   firstTrain + "</td><td>" +
   trainFrequency + " Minute(s)" + "</td><td>" +
   timeMinutesTillTrain + " Minute(s)" + "</td><td>");
-  // trainBilled + "</td></tr>");
 });
+
+// ====================================================================================================================================================================================================================
+// END
+// ====================================================================================================================================================================================================================
